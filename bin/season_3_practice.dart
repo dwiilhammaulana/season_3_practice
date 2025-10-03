@@ -1,12 +1,20 @@
-Future<String> getData() async {
-  // simulasi delay 2 detik
-  await Future.delayed(Duration(seconds: 2));
-  return 'Data berhasil diambil!';
+// contoh fungsi async yang mengembalikan data
+Future<String> fetchSomething() async {
+  await Future.delayed(Duration(seconds: 2)); // simulasi delay
+  // return 'Data berhasil diambil!';
+  throw Exception("Gagal mengambil data!"); // contoh error
 }
 
 void main() async {
-  print('Mulai fetch...');
-  String hasil = await getData();
-  print(hasil); // Data berhasil diambil!
-  print('Selesai');
+  try {
+    final data = await fetchSomething();
+    print(data);
+  } catch (e, st) {
+    // e: exception, st: stacktrace
+    print('Error: $e');
+    print('Stacktrace: $st');
+  } finally {
+    // selalu dipanggil (bersih-bersih, tutup koneksi, dsb.)
+    print('Selesai proses');
+  }
 }
